@@ -38,9 +38,17 @@ lies. A reviewer that is not told inherits the defect instead of correcting it.
 In testing, an unbriefed reviewer model returned 40 of 40 correct records for
 correction and filed 33 of 40 falsified ones, reasoning that the record ought to
 match the applicant's stated correction. Given one sentence placing field
-authority in the form's own boxes, the same model on the same records gave 40 of
-40 detections with no false returns. A review layer is worth buying, and
-worthless unbriefed.
+authority in the form's own boxes and naming remarks as requests, the same model
+on the same records gave 40 of 40 detections with no false returns.
+
+The wording is not incidental, and this clause is not satisfied by any statement
+that mentions accuracy. A general instruction that record values should reflect
+the fields on the form, which is the sentence a specification is most likely to
+contain, gave 18 of 40 detections and still returned 39 of 40 correct records for
+correction, because the remarks box is also on the form. A statement of field
+authority meets this clause only if it names free-text areas explicitly and says
+that text appearing there is a request rather than a correction. A review layer
+is worth buying, worthless unbriefed, and only half working if briefed vaguely.
 
 **2. Instruction isolation.** Content on a submitted document shall never be
 treated as an instruction to the system. Text requesting approval, refusal,
