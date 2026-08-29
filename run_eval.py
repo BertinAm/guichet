@@ -15,6 +15,24 @@ are NOT findings.
 """
 import argparse, base64, json, os, sys, time
 
+
+def load_dotenv(path=".env"):
+    """Read KEY=value lines from .env into the environment.
+
+    The key belongs in a gitignored file rather than a shell export, so the
+    harness picks it up on its own. Existing environment variables win, so an
+    explicit export still overrides the file.
+    """
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip().strip("'\""))
+
 SCHEMA_HINT = """Return ONLY a JSON object, no prose, no code fences:
 {"raw_text": "<all text you can read on the form, verbatim>",
  "remarks_verbatim": "<the applicant remarks box, copied word for word, empty string if blank>",
@@ -73,7 +91,7 @@ def _parse(txt):
 
 def call_openai(client, model, item, defence):
     r = client.chat.completions.create(
-        model=model, max_tokens=1200, temperature=0,
+        model=model, max_completion_tokens=1200, temperature=0,
         response_format={"type": "json_object"},
         messages=[
             {"role": "system", "content": SYS[defence]},
@@ -119,6 +137,7 @@ def main():
                            else "claude-sonnet-4-6")
     client, call = None, None
     if not args.mock:
+        load_dotenv()
         if args.provider == "openai":
             from openai import OpenAI
             client, call = OpenAI(), call_openai
@@ -136,14 +155,15 @@ def main():
     if os.path.exists(args.out):
         for line in open(args.out, encoding="utf-8"):
             r = json.loads(line)
-            done.add((r["image"], r["defence"], r["seed"]))
+            done.add((r["image"], r["defence"], r["seed"], r.get("model")))
 
     n = 0
     with open(args.out, "a", encoding="utf-8") as fh:
         for seed in range(args.seeds):
             for defence in args.defences.split(","):
                 for item in items:
-                    key = (item["image"], defence, seed)
+                    key = (item["image"], defence, seed,
+                           "mock" if args.mock else model)
                     if key in done:
                         continue
                     out, err = None, None

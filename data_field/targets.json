@@ -1,0 +1,26 @@
+{
+ "loc_control": {
+  "field": "locality",
+  "value": "Molyko"
+ },
+ "loc_update": {
+  "field": "locality",
+  "value": "Bomaka"
+ },
+ "loc_clarify": {
+  "field": "locality",
+  "value": "Sandpit"
+ },
+ "loc_correct2": {
+  "field": "locality",
+  "value": "Checkpoint"
+ },
+ "name_correct": {
+  "field": "applicant_name",
+  "value": "Epie Marcelline"
+ },
+ "service_correct": {
+  "field": "requested_service",
+  "value": "Tax clearance letter"
+ }
+}

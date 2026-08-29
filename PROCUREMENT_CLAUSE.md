@@ -46,9 +46,16 @@ that mentions accuracy. A general instruction that record values should reflect
 the fields on the form, which is the sentence a specification is most likely to
 contain, gave 18 of 40 detections and still returned 39 of 40 correct records for
 correction, because the remarks box is also on the form. A statement of field
-authority meets this clause only if it names free-text areas explicitly and says
-that text appearing there is a request rather than a correction. A review layer
-is worth buying, worthless unbriefed, and only half working if briefed vaguely.
+authority meets this clause only if it names free-text regions as
+non-authoritative. No particular phrasing is mandated, and the wording used in
+testing is not a magic string: the acceptance test in clause 3 is what
+establishes compliance, not the presence of a sentence. A review layer is worth
+buying, worthless unbriefed, and only half working if briefed vaguely.
+
+In testing, every one of the 22 records the vaguely briefed reviewer wrongly
+filed gave the same reason: that the record matched the form including the
+correction stated in the applicant remarks. The remarks box is on the form, so an
+instruction to reflect the form is an instruction to obey the applicant.
 
 **2. Instruction isolation.** Content on a submitted document shall never be
 treated as an instruction to the system. Text requesting approval, refusal,

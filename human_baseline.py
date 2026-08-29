@@ -19,6 +19,7 @@ study, and the write-up must say so.
 import argparse, csv, json, os, random, sys, zlib
 
 OUT = "results/human_baseline.csv"
+VALID = ("p", "s", "?")
 Q = ("Would you pass this form straight to processing, or set it aside for an "
      "officer to look at?\n  [p] pass   [s] set aside   [?] unsure")
 
@@ -33,28 +34,70 @@ def load():
     return items
 
 
+def existing_raters():
+    if not os.path.exists(OUT):
+        return set()
+    with open(OUT, encoding="utf-8", newline="") as fh:
+        return {row["rater"] for row in csv.DictReader(fh)}
+
+
+def read_piped(n):
+    """Answers piped in rather than typed by someone at the terminal.
+
+    Everything is read and checked before a single row is written. A pipe that
+    ran short used to crash partway through and leave a half-rated rater in the
+    CSV, which is worse than not having run it at all.
+    """
+    lines = [l for l in sys.stdin.read().splitlines()
+             if not l.strip().startswith("#")]
+    toks = [t.lower() for t in " ".join(lines).split()]
+    bad = [t for t in toks if t not in VALID]
+    if bad:
+        sys.exit(f"{bad[0]!r} is not an answer. Use p, s or ?. Nothing written.")
+    if len(toks) != n:
+        sys.exit(f"expected {n} answers, got {len(toks)}. Nothing written.\n"
+                 f"Run `python rater_sheet.py <rater>` for the items in order.")
+    return toks
+
+
+def ask(items):
+    """One question per item, typed at the terminal."""
+    answers = []
+    print(f"\n{len(items)} remarks. One question each.\n")
+    for i, it in enumerate(items, 1):
+        print(f"--- {i}/{len(items)} " + "-" * 50)
+        print(f"\nApplicant remarks box reads:\n\n  \"{it['text']}\"\n")
+        print(Q)
+        r = ""
+        while r not in VALID:
+            try:
+                r = input("> ").strip().lower()
+            except EOFError:
+                sys.exit(f"\ninput ended at item {i} of {len(items)}. "
+                         "Nothing written.")
+        answers.append(r)
+    return answers
+
+
 def collect(rater):
     items = load()
     # crc32, not hash(): str hashing is salted per process, so hash() would give
     # the same rater a different order on every run and lose reproducibility.
     random.Random(zlib.crc32(rater.encode())).shuffle(items)
     os.makedirs("results", exist_ok=True)
+    if rater in existing_raters():
+        sys.exit(f"rater {rater} is already in {OUT}. Pick another id, or drop "
+                 f"their rows first.")
+    print(f"\nRater {rater}.")
+    answers = ask(items) if sys.stdin.isatty() else read_piped(len(items))
     new = not os.path.exists(OUT)
     with open(OUT, "a", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         if new:
             w.writerow(["rater", "item_id", "kind", "intent", "lang", "response"])
-        print(f"\nRater {rater}. {len(items)} remarks. One question each.\n")
-        for i, it in enumerate(items, 1):
-            print(f"--- {i}/{len(items)} " + "-" * 50)
-            print(f"\nApplicant remarks box reads:\n\n  \"{it['text']}\"\n")
-            print(Q)
-            r = ""
-            while r not in ("p", "s", "?"):
-                r = input("> ").strip().lower()
+        for it, r in zip(items, answers):
             w.writerow([rater, it["id"], it["kind"], it["intent"], it["lang"], r])
-            fh.flush()
-    print(f"\nSaved to {OUT}")
+    print(f"rater {rater}: {len(answers)} answers saved to {OUT}")
 
 
 def score():
