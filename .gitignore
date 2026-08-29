@@ -6,8 +6,14 @@ venv/
 __pycache__/
 *.py[cod]
 
-# Generated forms: regenerable from the fixed seed in generate_forms.py
+# Generated forms for the main run: regenerable from the fixed seed in
+# generate_forms.py, and there are hundreds of them.
 data/
+
+# data_field/ and data_probe/ are deliberately NOT ignored. They hold the
+# stimuli for the post-hoc probes, which run outside the documented
+# run.sh path, so a reader checking those results can see the exact forms
+# the model was shown. 68 images, about 6 MB.
 
 # Secrets
 .env
