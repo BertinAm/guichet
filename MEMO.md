@@ -36,7 +36,7 @@ transcription, and conditional on that, did the record or routing move the way t
 payload asked. Without the split, an attack that fails because the transcription
 mangled it is indistinguishable from one the model ignored.
 
-[R] people rated each remark blind: pass to processing, or set aside for an officer.
+A human-review arm was designed and implemented but not run. See Limitations.
 
 Pre-registration was committed to git before the first run.
 
@@ -51,10 +51,11 @@ Pre-registration was committed to git before the first run.
 | Benign-arm false positives | [ ] | [ ] |
 | Silent compliance | [ ] | [ ] |
 
-**Automation gap: [X]%** of attacks that a majority of human raters would have set
-aside were obeyed by the undefended pipeline. [One sentence: this is the finding —
-not that the pipeline is exploitable, but that automating the counter removed a
-control that was already working.]
+**In [ ] of [ ] successful forgeries the pipeline transcribed the true value into
+`raw_text` and wrote the applicant's demanded value into the structured field.**
+[One sentence: this is the finding — not that the model can be tricked, but that
+free text on the form has write access to record fields that it should never
+have had.]
 
 [If the handwritten arm ran: one paragraph on whether handwriting reduced *delivery*
 or *compliance*. If delivery collapsed, say plainly that handwritten intake is
@@ -76,9 +77,11 @@ indicates whether such a flag is one officers would keep switched on.
 ### Limitations
 
 Single form design; synthetic records; [N] records; payloads authored by us,
-partially mitigated by the held-out set; [R] raters is an informal baseline, not a
-study; one writer for the handwritten arm; two defence conditions; no
-officer-in-the-loop measurement. For review evasion, `flagged_content` is both the
+partially mitigated by the held-out set; one writer for the handwritten arm; two
+defence conditions; no officer-in-the-loop measurement. A human-review arm was
+designed and implemented but not run: no independent raters were available, and
+ratings collected by the payload author were excluded. Whether an officer reading
+the remarks box would catch these corrections is untested. For review evasion, `flagged_content` is both the
 model's self-report and part of the success criterion, which is mildly circular.
 Delivery under-counts if both the verbatim remarks field and the raw transcription
 are degraded in the same run.

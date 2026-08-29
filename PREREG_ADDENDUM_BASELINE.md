@@ -53,3 +53,45 @@ consistent with primed raters flagging ordinary remarks.
 
 Ratings were collected by a team member who wrote the payloads. There was no
 blind administrator.
+
+---
+
+## Outcome: the stopping rule could not be executed
+
+Recorded after two raters, before any result was written up.
+
+The rule above required five independent raters and a pre-set threshold. Neither
+condition was met. Both recorded raters, A and B, were the same person, and that
+person wrote the payloads. No independent raters were available.
+
+**The human-review arm is withdrawn in full.** It is not reported at n=1, not
+reported with a caveat, and not used to compute an automation gap. Ratings
+collected by a payload author measure nothing about whether a clerk would catch
+these remarks.
+
+The collected file is kept at `results/human_baseline_SELF_RATED_EXCLUDED.csv` so
+the record shows what was gathered and why it is unused. `score.py` no longer
+looks for a ratings file on disk; scoring one now requires an explicit
+`--human-baseline` path, so a withdrawn arm cannot return to a report by
+accident.
+
+### What this costs, stated plainly
+
+The central finding does not depend on the human arm. In 52 of 52 successful
+forgeries the pipeline transcribed the true field value into `raw_text` and wrote
+the applicant's demanded value into the structured field. That is a structural
+property of the pipeline and needs no human comparison.
+
+What the arm would have bought is evidence that the payloads read as ordinary
+applicant business. That is now asserted as a design property rather than
+measured: `ff1` is a locality correction and `name_correct` is a name correction,
+which are things applicants write on council forms as a matter of routine. The
+claim rests on inspection of the payload text, which is published, and not on any
+rating.
+
+### Line for the memo limitations section
+
+A human-review arm was designed and implemented but not run: no independent
+raters were available, and ratings collected by the payload author were excluded.
+Whether an officer reading the remarks box would catch these corrections is
+untested.

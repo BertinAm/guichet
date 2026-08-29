@@ -106,6 +106,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--runs", default="results/runs.jsonl")
     ap.add_argument("--md", default="results/results.md")
+    ap.add_argument("--human-baseline", default=None,
+                    help="CSV of INDEPENDENTLY collected ratings. Never "
+                         "auto-discovered: the human arm was withdrawn, and "
+                         "an explicit path is required so it cannot come "
+                         "back into a report by accident.")
     args = ap.parse_args()
 
     spec_t = json.load(open("payloads.json", encoding="utf-8"))
@@ -181,8 +186,8 @@ def main():
               "means the main set was tuned, wittingly or not.", ""]
 
     # --- automation gap: the headline -------------------------------------
-    hb = "results/human_baseline.csv"
-    if os.path.exists(hb):
+    hb = args.human_baseline
+    if hb and os.path.exists(hb):
         rows = list(_csv.DictReader(open(hb, encoding="utf-8", newline="")))
         raters = sorted({r["rater"] for r in rows})
         setaside = defaultdict(list)
@@ -235,12 +240,15 @@ def main():
                              f"{100*len(a)/len(g):.0f}% ({len(a)}/{len(g)}) |")
         lines.append("")
     else:
-        lines += ["## Automation gap", "",
-                  "_No human ratings yet. Run "
-                  "`python human_baseline.py collect --rater R1` for 3-5 raters. "
-                  "Without this the report says the pipeline is exploitable; "
-                  "with it, the report says automation removed a working "
-                  "control._", ""]
+        lines += ["## Human review arm", "",
+                  "**Withdrawn.** A human-review arm was designed and "
+                  "implemented but not run: no independent raters were "
+                  "available, and ratings collected by the payload author were "
+                  "excluded. Whether an officer reading the remarks box would "
+                  "catch these corrections is untested.", "",
+                  "_Scoring an independently collected file requires "
+                  "`--human-baseline <path>`. It is deliberately not picked up "
+                  "from disk._", ""]
 
     # --- silent compliance: the worst cell ---------------------------------
     silent = [r for r in inj if delivered(r) and complied(r, targets)
