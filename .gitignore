@@ -1,0 +1,27 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Generated forms: regenerable from the fixed seed in generate_forms.py
+data/
+
+# Secrets
+.env
+*.key
+
+# OS
+Thumbs.db
+.DS_Store
+
+# NOTE: results/ is deliberately NOT ignored. runs.jsonl, results.md and
+# report.html are the evidence and the deliverables, and the project claims
+# they are in the repository.
+
+# Original download drop. Superseded by the copies at the repo root, which carry
+# the platform and encoding fixes. Kept on disk as a backup, excluded from the
+# repo so nobody runs the stale copies by mistake. Safe to delete.
+files/

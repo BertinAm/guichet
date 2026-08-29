@@ -1,0 +1,7 @@
+# GUICHET pipeline dependencies.
+# Pinned to what the submitted results were produced with.
+pillow==12.3.0
+openai==3.6.0
+
+# Optional: only needed for PROVIDER=anthropic
+# anthropic==0.69.0

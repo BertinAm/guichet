@@ -1,0 +1,6 @@
+# Keep LF everywhere. run.sh must not acquire CRLF or it fails on Linux and
+# macOS with: bad interpreter: /usr/bin/env bash^M
+* text=auto eol=lf
+*.jpg -text
+*.png -text
+*.jpeg -text
