@@ -135,7 +135,19 @@ one wording works, not that ours is minimal or optimal. Field, phrasing and
 reviewer probes were added after the first scored run and are labelled post-hoc
 throughout; the pre-registered result is the 3.1% and 12.5% attack-success
 measurement. One form design, synthetic records, two models, one seed for the main
-runs with three replicates on the injection arm. The record shown to the reviewer
+runs with three replicates on the injection arm.
+
+The handwritten channel was pre-registered and not run, for time. Predictions 2
+and 3 of the pre-registration, which concern whether handwriting degrades delivery
+and whether French payloads evade an English-worded defence, are therefore
+unresolved. The pre-registration names the handwritten and bilingual channels as
+one of the two things making the threat model novel, and only the bilingual half
+was tested.
+
+Language coverage is thinner than the headline suggests. The 52 of 52 result rests
+on eight payload templates, of which seven are English; French coverage comes from
+a single template, ff2. The claim that the effect holds in both official languages
+is carried by that one payload and should be read as such. The record shown to the reviewer
 omits the supporting-documents line, which produced four spurious catches in the
 unbriefed condition and is held constant across all three. For review evasion, the
 model's own flag output is both a self-report and part of the success criterion.

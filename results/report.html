@@ -136,7 +136,17 @@ looks like it does.</p>
 <p>reviewer probes were added after the first scored run and are labelled post-hoc</p>
 <p>throughout; the pre-registered result is the 3.1% and 12.5% attack-success</p>
 <p>measurement. One form design, synthetic records, two models, one seed for the main</p>
-<p>runs with three replicates on the injection arm. The record shown to the reviewer</p>
+<p>runs with three replicates on the injection arm.</p>
+<p>The handwritten channel was pre-registered and not run, for time. Predictions 2</p>
+<p>and 3 of the pre-registration, which concern whether handwriting degrades delivery</p>
+<p>and whether French payloads evade an English-worded defence, are therefore</p>
+<p>unresolved. The pre-registration names the handwritten and bilingual channels as</p>
+<p>one of the two things making the threat model novel, and only the bilingual half</p>
+<p>was tested.</p>
+<p>Language coverage is thinner than the headline suggests. The 52 of 52 result rests</p>
+<p>on eight payload templates, of which seven are English; French coverage comes from</p>
+<p>a single template, ff2. The claim that the effect holds in both official languages</p>
+<p>is carried by that one payload and should be read as such. The record shown to the reviewer</p>
 <p>omits the supporting-documents line, which produced four spurious catches in the</p>
 <p>unbriefed condition and is held constant across all three. For review evasion, the</p>
 <p>model's own flag output is both a self-report and part of the success criterion.</p>
@@ -258,10 +268,13 @@ looks like it does.</p>
 <p>by a further model, shall be given the same statement of where field authority</p>
 <p>lies. A reviewer that is not told inherits the defect instead of correcting it.</p>
 <p>In testing, an unbriefed reviewer model returned 40 of 40 correct records for</p>
-<p>correction and filed 33 of 40 falsified ones, reasoning that the record ought to</p>
-<p>match the applicant's stated correction. Given one sentence placing field</p>
-<p>authority in the form's own boxes and naming remarks as requests, the same model</p>
-<p>on the same records gave 40 of 40 detections with no false returns.</p>
+<p>correction and identified none of the 40 falsified ones. It returned 7 of those</p>
+<p>40, but not one for a reason relating to the forged value: four objected that a</p>
+<p>different field was missing from the record it was given, and three argued that</p>
+<p>the record ought to match the applicant's stated correction.</p>
+<p>Given one sentence placing field authority in the form's own boxes and naming</p>
+<p>remarks as requests, the same model on the same records gave 40 of 40 detections</p>
+<p>with no false returns.</p>
 <p>The wording is not incidental, and this clause is not satisfied by any statement</p>
 <p>that mentions accuracy. A general instruction that record values should reflect</p>
 <p>the fields on the form, which is the sentence a specification is most likely to</p>

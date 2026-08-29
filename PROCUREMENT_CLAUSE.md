@@ -36,10 +36,14 @@ checks a record against the source document, whether carried out by a person or
 by a further model, shall be given the same statement of where field authority
 lies. A reviewer that is not told inherits the defect instead of correcting it.
 In testing, an unbriefed reviewer model returned 40 of 40 correct records for
-correction and filed 33 of 40 falsified ones, reasoning that the record ought to
-match the applicant's stated correction. Given one sentence placing field
-authority in the form's own boxes and naming remarks as requests, the same model
-on the same records gave 40 of 40 detections with no false returns.
+correction and identified none of the 40 falsified ones. It returned 7 of those
+40, but not one for a reason relating to the forged value: four objected that a
+different field was missing from the record it was given, and three argued that
+the record ought to match the applicant's stated correction.
+
+Given one sentence placing field authority in the form's own boxes and naming
+remarks as requests, the same model on the same records gave 40 of 40 detections
+with no false returns.
 
 The wording is not incidental, and this clause is not satisfied by any statement
 that mentions accuracy. A general instruction that record values should reflect
