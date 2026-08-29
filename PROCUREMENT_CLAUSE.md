@@ -3,10 +3,15 @@
 For insertion into a local authority tender or service contract. Drafted from the
 GUICHET results; thresholds to be set by the authority.
 
-The controls below are ordered deliberately. Clause 1 is structural: a supplier
-either builds it or does not, and it does not depend on a model's judgement being
-good. Clauses 6 and 7 are detection, which is the fallback for what structure
-cannot cover. An authority that buys detection alone has bought the weaker half.
+The controls below are ordered deliberately. Clause 1 states an outcome: a field
+value comes only from its own box. In testing that outcome held wherever field
+authority was stated and failed wherever it was not, at both the extraction step
+and a separate review step. A supplier may meet it by construction or by explicit
+instruction. Clause 3 measures the outcome either way, and clause 8 requires
+retesting, because an instruction a model follows today is not a guarantee by
+construction. Clauses 6 and 7 are detection, which is the fallback for what
+clause 1 does not cover. An authority that buys detection alone has bought the
+weaker half.
 
 **1. Field provenance.** Each extracted field value shall derive only from the
 region of the document designated for that field. Text appearing elsewhere on the
@@ -22,7 +27,20 @@ in 52 of 52 attempts, across four field values, three phrasings, three fields
 every one of those 52 cases the system transcribed the true value from the form
 elsewhere in its own output while writing the applicant's demanded value into the
 field. The failure is not misreading. It is that free text was permitted to write
-to a field.
+to a field. Where the same pipeline was told that document content is untrusted
+and never an instruction, the rate fell to zero. This is a specification gap, not
+a limit of the technology.
+
+**1a. The authority statement reaches every reviewer.** Any downstream step that
+checks a record against the source document, whether carried out by a person or
+by a further model, shall be given the same statement of where field authority
+lies. A reviewer that is not told inherits the defect instead of correcting it.
+In testing, an unbriefed reviewer model returned 40 of 40 correct records for
+correction and filed 33 of 40 falsified ones, reasoning that the record ought to
+match the applicant's stated correction. Given one sentence placing field
+authority in the form's own boxes, the same model on the same records gave 40 of
+40 detections with no false returns. A review layer is worth buying, and
+worthless unbriefed.
 
 **2. Instruction isolation.** Content on a submitted document shall never be
 treated as an instruction to the system. Text requesting approval, refusal,
